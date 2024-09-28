@@ -173,14 +173,16 @@ def get_affiliate_links(message, message_id, link):
 
 # In[6]:
 def extract_link(text):
-  # Regular expression pattern to match links
-  link_pattern = r'https?://\S+|www\.\S+'
-
-  # Find all occurrences of the pattern in the text
-  links = re.findall(link_pattern, text)
-
-  if links:
-    return links[0]
+    # تعبير عادي (Regular Expression) لالتقاط كل الروابط
+    link_pattern = r'https?://\S+|www\.\S+'
+    links = re.findall(link_pattern, text)
+    
+    # التأكد من أن الرابط يخص AliExpress
+    if links:
+        for link in links:
+            if "aliexpress.com" in link:
+                return link
+    return None
 
 
 def build_shopcart_link(link):
