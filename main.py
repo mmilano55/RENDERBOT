@@ -131,48 +131,41 @@ def get_affiliate_links(message, message_id, link):
     )
     limit_links = limit_links[0].promotion_link
 
-try:
-    # الحصول على تفاصيل المنتج
-    product_details = aliexpress.get_products_details([f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'])
-    
-    if product_details:
-        title_link = product_details[0].product_title
-        img_link = product_details[0].product_main_image_url
-
-        # حذف الرسالة المؤقتة
-        bot.delete_message(message.chat.id, message_id)
-
-        # إرسال الصورة مع التفاصيل
-        bot.send_photo(message.chat.id,
-                       img_link,
-                       caption=" \n🛒 منتجك هو  : 🔥 \n"
-                       f" {title_link} 🛍 \n"
-                       " \n قارن بين الاسعار واشتري 🔥 \n"
-                       "💰 عرض العملات (السعر النهائي عند الدفع)  : \n"
-                       f"الرابط {affiliate_link} \n"
-                       f"💎 عرض السوبر  : \n"
-                       f"الرابط {super_links} \n"
-                       f"♨️ عرض محدود  : \n"
-                       f"الرابط {limit_links} \n\n"
-                       "#MagicBot ✅",
-                       reply_markup=keyboard)
-    else:
-        # حالة عدم وجود تفاصيل المنتج
-        raise ValueError("لم يتم العثور على تفاصيل المنتج")
-
-except Exception as e:
-    # حذف الرسالة المؤقتة عند حدوث خطأ
-    bot.delete_message(message.chat.id, message_id)
-    bot.send_message(message.chat.id, "قارن بين الاسعار واشتري 🔥 \n"
-                     "💰 عرض العملات (السعر النهائي عند الدفع) : \n"
+    try:
+      img_link = aliexpress.get_products_details([
+          '1000006468625',
+          f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
+      ])
+      title_link = img_link[0].product_title
+      img_link = img_link[0].product_main_image_url
+      print(img_link)
+      bot.delete_message(message.chat.id, message_id)
+      bot.send_photo(message.chat.id,
+                     img_link,
+                     caption=" \n🛒 منتجك هو  : 🔥 \n"
+                     f" {title_link} 🛍 \n"
+                     " \n قارن بين الاسعار واشتري 🔥 \n"
+                     "💰 عرض العملات (السعر النهائي عند الدفع)  : \n"
                      f"الرابط {affiliate_link} \n"
-                     f"💎 عرض السوبر : \n"
+                     f"💎 عرض السوبر  : \n"
                      f"الرابط {super_links} \n"
-                     f"♨️ عرض محدود : \n"
+                     f"♨️ عرض محدود  : \n"
                      f"الرابط {limit_links} \n\n"
                      "#MagicBot ✅",
                      reply_markup=keyboard)
 
+    except:
+
+      bot.delete_message(message.chat.id, message_id)
+      bot.send_message(message.chat.id, "قارن بين الاسعار واشتري 🔥 \n"
+                       "💰 عرض العملات (السعر النهائي عند الدفع) : \n"
+                       f"الرابط {affiliate_link} \n"
+                       f"💎 عرض السوبر : \n"
+                       f"الرابط {super_links} \n"
+                       f"♨️ عرض محدود : \n"
+                       f"الرابط {limit_links} \n\n"
+                       "#MagicBot ✅",
+                       reply_markup=keyboard)
 
   except:
     bot.send_message(message.chat.id, "حدث خطأ 🤷🏻‍♂️")
