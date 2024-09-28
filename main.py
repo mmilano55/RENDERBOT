@@ -267,6 +267,6 @@ def handle_games_callback(call):
 
 
 if __name__ == '__main__':
-    webhook_url = "https://romantic-irina-bot55-5c546600.koyeb.app/"
+    webhook_url = "https://renderbot-gifa.onrender.com/"
     bot.set_webhook(url=webhook_url)
     app.run(host='0.0.0.0', port=8000)
