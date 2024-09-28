@@ -138,12 +138,14 @@ def get_affiliate_links(message, message_id, link):
       ])
       title_link = img_link[0].product_title
       img_link = img_link[0].product_main_image_url
+      sold_quantity = product_info.sold_quantity
       print(img_link)
       bot.delete_message(message.chat.id, message_id)
       bot.send_photo(message.chat.id,
                      img_link,
                      caption=" \n🛒 منتجك هو  : 🔥 \n"
                      f" {title_link} 🛍 \n"
+                     f"عدد القطع المباعة: {sold_quantity} قطعة 🛒\n"
                      " \n قارن بين الاسعار واشتري 🔥 \n"
                      "💰 عرض العملات (السعر النهائي عند الدفع)  : \n"
                      f"الرابط {affiliate_link} \n"
