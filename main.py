@@ -228,24 +228,19 @@ def get_affiliate_shopcart_link(link, message):
 
 @bot.message_handler(func=lambda message: True)
 def get_link(message):
-  link = extract_link(message.text)
+    link = extract_link(message.text)
+    if link:
+        sent_message = bot.send_message(message.chat.id, 'المرجو الانتظار قليلا، يتم تجهيز العروض ⏳')
+        message_id = sent_message.message_id
+        if "s.click.aliexpress.com" in link:
+            # هنا يمكنك استدعاء دالة خاصة لمعالجة رابط الـ affiliate
+            get_affiliate_links(message, message_id, link)
+        else:
+            # هنا تستدعي الدالة الخاصة بمعالجة الرابط المباشر
+            get_affiliate_links(message, message_id, link)
+    else:
+        bot.send_message(message.chat.id, "الرابط غير صحيح ! تأكد من رابط المنتج أو اعد المحاولة.\n قم بإرسال <b> الرابط فقط</b> بدون عنوان المنتج", parse_mode='HTML')
 
-  sent_message = bot.send_message(message.chat.id,
-                                  'المرجو الانتظار قليلا، يتم تجهيز العروض ⏳')
-  message_id = sent_message.message_id
-  if link and "aliexpress.com" in link and not ("p/shoppingcart"
-                                                in message.text.lower()):
-    if "availableProductShopcartIds".lower() in message.text.lower():
-      get_affiliate_shopcart_link(link, message)
-      return
-    get_affiliate_links(message, message_id, link)
-
-  else:
-    bot.delete_message(message.chat.id, message_id)
-    bot.send_message(message.chat.id,
-                     "الرابط غير صحيح ! تأكد من رابط المنتج أو اعد المحاولة.\n"
-                     " قم بإرسال <b> الرابط فقط</b> بدون عنوان المنتج",
-                     parse_mode='HTML')
 
 
 # In[7]:
