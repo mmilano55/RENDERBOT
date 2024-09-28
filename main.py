@@ -11,7 +11,7 @@ from flask import Flask, request
 import urllib.parse
 
 # إعداد البوت
-bot = telebot.TeleBot('7347607126:AAH9C09wOGfeXpq8Uk0c3VOrCgcee2yzjHU')
+bot = telebot.TeleBot('7213806787:AAF_49RL3hXwbuZlsYskBIdS27WRCDG8nXc')
 # إعداد Aliexpress API
 aliexpress = AliexpressApi('509744', 'VMA05mD9CZloQdHTzhggTU6vxKJSZ9q8',
                            models.Language.AR, models.Currency.USD, 'default')
